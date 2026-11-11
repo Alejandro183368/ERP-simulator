@@ -9,15 +9,16 @@ def main():
     with GraphDatabase.driver(URI, auth=AUTH) as driver:
         try:
             driver.verify_connectivity()
-            print("✅ Conexión exitosa a Neo4j Aura DB!")
+            print("Conexión exitosa")
         except Exception as e:
-            print(f"❌ Error de conexión: {e}")
+            print(f"Error de conexión: {e}")
             return
         with driver.session() as session:
             session.run("MATCH (n) DETACH DELETE n")
             print("Insertando datos...")
-            session.run("CREATE (p:Persona {nombre: 'Leo', rol: 'Ingeniero de Procesos'})")
-            session.run("CREATE (p:Persona {nombre: 'Alice', rol: 'Desarrolladora'})")
+            session.run("CREATE (p:Persona {nombre: 'Chui', rol: 'Healer'})")
+            session.run("CREATE (p:Persona {nombre: 'Rivera', rol: 'Tanque'})")
+            session.run("CREATE (p:Persona {nombre: 'Ale', rol: 'DPS'})")
             print("\nConsultando el grafo:")
             resultado = session.run("MATCH (p:Persona) RETURN p.nombre AS nombre, p.rol AS rol")
             for registro in resultado:
